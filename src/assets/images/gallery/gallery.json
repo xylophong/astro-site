@@ -1,0 +1,69 @@
+{
+  "title": "Photo gallery",
+  "description": "A collection of film and digital photos",
+  "images": [
+    {
+      "alt": "Waves on rocks",
+      "caption": "Collioure, France",
+      "camera": "Pentax P30, 50mm f/1.7, Ilford Delta 100",
+      "path": "/src/assets/images/gallery/398562DF-84B9-4752-A6AF-99482CE1C100_1_105_c.jpeg",
+      "rank": "1"
+    },
+    {
+      "alt": "Natural bridge",
+      "caption": "West Lulworth, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/43E3CEE3-D126-4AA0-B771-B66D299C7F9D_1_105_c.jpeg",
+      "rank": "2"
+    },
+    {
+      "alt": "Beach shack",
+      "caption": "Brighton, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/98C43FE4-0AFB-41C3-B739-D39C8AEA7446_1_105_c.jpeg",
+      "rank": "3"
+    },
+    {
+      "alt": "Beach",
+      "caption": "Collioure, France",
+      "camera": "Pentax P30, 50mm f/1.7, Ilford Delta 100",
+      "path": "/src/assets/images/gallery/627E3614-A495-40A4-B45F-A5F4C5C89272_1_105_c.jpeg",
+      "rank": "4"
+    },
+    {
+      "alt": "Lifeguard",
+      "caption": "Brighton, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/951D4A82-1093-4C2B-97F2-4BFD11CA6B5D_1_105_c.jpeg",
+      "rank": "5"
+    },
+    {
+      "alt": "Port",
+      "caption": "Collioure, France",
+      "camera": "Pentax P30, 50mm f/1.7, Ilford Delta 100",
+      "path": "/src/assets/images/gallery/A7A15098-6031-44A8-A81F-F0375CD00F0E_1_105_c.jpeg",
+      "rank": "6"
+    },
+    {
+      "alt": "Seven Sisters",
+      "caption": "Seven Sisters, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/AFF8892F-F6A3-4082-8798-3BAF49E12A15_1_105_c.jpeg",
+      "rank": "7"
+    },
+    {
+      "alt": "Nuns in the sun",
+      "caption": "Exmoor National Park, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/E88CCB6E-1678-4EFA-A89E-15EA1EA98E43_1_105_c.jpeg",
+      "rank": "8"
+    },
+    {
+      "alt": "Beach chairs",
+      "caption": "Brighton, England",
+      "camera": "Pentax P30, 50mm f/1.7, Kodak Portra 400",
+      "path": "/src/assets/images/gallery/F79F908E-CA5B-43D7-932C-FE803F6DE907_1_105_c.jpeg",
+      "rank": "9"
+    }
+  ]
+}

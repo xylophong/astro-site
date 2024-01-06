@@ -1,0 +1,177 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import { SITE } from "@config";
+
+import json from "@assets/images/gallery/gallery.json";
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/gallery/*.{jpeg,jpg,png,gif}');
+
+---
+<script>
+
+var slideIndex = 0;
+
+function openModal() {
+  document.querySelector(".modal")?.classList.remove("hidden");
+  document.addEventListener('mousedown', handleOutsideClick);
+}
+
+function closeModal() {
+  document.querySelector(".modal")?.classList.add("hidden");
+}
+
+function showSlides(n: number) {
+  var slides = document.querySelectorAll(".slide");
+  if (n > slides.length-1) {slideIndex = 0}
+  slides.forEach((slide) => {
+    slide.classList.add("hidden");
+  })
+  slides[slideIndex]?.classList.remove("hidden");
+}
+
+function plusSlides(n: number) {
+  slideIndex += n;
+  showSlides(slideIndex);
+}
+
+function currentSlide(n: number) {
+  slideIndex = Number(n);
+  showSlides(slideIndex);
+}
+
+function thumbnailClick(e: any) {
+  openModal();
+  currentSlide(e.target.id);
+}
+
+document.addEventListener('astro:page-load',
+  () => {
+  const thumbnails = document.querySelectorAll(".thumbnail");
+  thumbnails.forEach((thumbnail) => {
+    thumbnail.addEventListener('click', (e) => {
+      thumbnailClick(e);
+    });
+  });
+})
+
+// const thumbnails = document.querySelectorAll(".thumbnail");
+// thumbnails.forEach((thumbnail) => {
+//   thumbnail.addEventListener('click', (e) => {
+//     thumbnailClick(e);
+//   });
+// });
+
+const prevs = document.querySelectorAll(".prev");
+prevs.forEach((prev) => {
+  prev.addEventListener('click', () => {
+    plusSlides(-1);
+  });
+});
+
+const nexts = document.querySelectorAll(".next");
+nexts.forEach((next) => {
+  next.addEventListener('click', () => {
+    plusSlides(1);
+  });
+});
+
+function handleOutsideClick(e: any) {
+  const inModal = document.querySelector(".modal")?.contains(e.target);
+  const inPrev = document.querySelector(".prev")?.contains(e.target);
+  const inNext = document.querySelector(".next")?.contains(e.target);
+  if (inModal && !inPrev && !inNext) {
+    closeModal();
+    document.removeEventListener('mousedown', handleOutsideClick);
+  }
+}
+</script>
+
+<Layout title={`Photos | ${SITE.title}`}>
+  <Header activeNav="photos" />
+  <Main pageTitle="Photos" >
+    <div class="thumbnail-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    {
+      json.images.map((img, i) => (
+        <div class="thumbnail grid gap-2 overflow-hidden">
+          <Image
+            class="h-auto max-w-full transition duration-100 hover:scale-110 object-cover"
+            src={images[img.path]()}
+            alt={img.alt}
+            id={`${i}`}
+          />
+        </div>
+      ))
+    }
+    </div>
+    <div class="modal no-scrollbar hidden">
+      <span class="close absolute text-white text-2xl top-4 right-10 font-bold">&times;</span>
+      <div class="slide-container relative m-10 p-0">
+        {
+          json.images.map((img, i) => (
+            <div class="slide flex flex-col">
+              <Image
+                class="flex-1 max-h-[85vh] w-auto m-auto"
+                src={images[img.path]()}
+                alt={img.alt}
+              />
+              <div class="text-center text-white px-4 py-1">
+                <p class="text-xs">{img.caption} &#183; {img.camera}</p>
+              </div>
+            </div>
+          ))
+        }
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+      </div>
+    </div>
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+  .modal {
+    @apply fixed pt-[10px] z-10 left-0 top-0 w-full h-full overflow-auto bg-black;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Next & previous buttons */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+</style>
