@@ -20,11 +20,16 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [
       remarkToc,
-      remarkMath,
       [
         remarkCollapse,
         {
           test: "Table of contents",
+        },
+      ],
+      [
+        "remark-math",
+        {
+          // Remark math options
         },
       ],
     ],
