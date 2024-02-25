@@ -80,7 +80,13 @@ However, estimation of the survival function is not trivial. If the data were no
 
 where <Latex formula={'\\mathbb{I}\_{t_i > t}'}/> is the indicator function that takes the value <Latex formula={'1'}/> if the associated condition is true and <Latex formula={'0'}/> otherwise. The estimator is then simply the proportion of participants alive (ie. that did not experiment the event) at time <Latex formula={'t'}/>. But due to censoring, we do not have the time of event <Latex formula={'t_i'}/> for all patients and therefore must find another way to estimate the survival function. Kaplan and Meier (1958) came up with a way to do that elegantly.
 
-> Small anecdote: after submitting similar manuscripts to the Journal of the American Statistical Association, its editor, Pr. John Tukey, then coworker of Kaplan at Bell labs and PhD thesis director of Meier, convinced them to fuse their work into one single paper that will later be the most highly cited paper in the history of statistics.
+<blockquote class="prose-quoteless">
+  Small anecdote: after submitting similar manuscripts to the Journal of the
+  American Statistical Association, its editor, Pr. John Tukey, then coworker of
+  Kaplan at Bell labs and PhD thesis director of Meier, convinced them to fuse
+  their work into one single paper that will later be the most highly cited
+  paper in the history of statistics.
+</blockquote>
 
 Let <Latex formula={'t*{(1)} < t*{(2)} < ... < t*{(m)}'}/> denote the distinct ordered times of events, and let <Latex formula={'n\\\_i'}/> be the number alive just before <Latex formula={'t*{(i)}'}/>; <Latex formula={'n_i'}/> is considered the number exposed to risk at time <Latex formula={'t\\\_i'}/>. The **Kaplan-Meier estimator** of the survival function is
 
