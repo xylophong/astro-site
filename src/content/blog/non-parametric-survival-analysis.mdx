@@ -9,6 +9,14 @@ description: Classical and battle-tested tools for censored time-to-event data
 ---
 
 import Latex from "../../components/Latex.astro";
+import { Image } from "astro:assets";
+
+import generalKM from "/src/assets/images/km-general.png";
+import genderKM from "/src/assets/images/km-gender.png";
+import treatmentKM from "/src/assets/images/km-treatment.png";
+import logLog from "/src/assets/images/loglog.png";
+import survivalBias1 from "/src/assets/images/survival-bias-1.jpeg";
+import survivalBias2 from "/src/assets/images/survival-bias-2.jpeg";
 
 In biomedical research, especially in the fields of epidemiology or oncology, one of the most common outcome under assessment is the time to an event of interest (also called "failure"), namely **survival time**. The considered event is often death, but could be anything else such as cancer relapse or progression instead. The vast majority of survival analyses have extensively been using Kaplan-Meier (KM) estimates, log-rank tests and Cox proportional hazards (CoxPH) models, all of which we will describe shortly. This post is an attempt to review the most classical approach to survival analyses, in prevision for a following post discussing how everything fares in the high dimensional setting and solutions to potential problems that might arise.
 
@@ -88,10 +96,7 @@ which is really just a product of the observed probability to survive at time <L
 The KM survival curve, a plot of the KM survival probability against time, provides a useful summary of the data that can be used to estimate measures such as median survival time. As an example, we'll be using a dataset of 42 leukemia patients in a clinical trial to compare treatment with placebo (from [Freireich et al.](http://www.bloodjournal.org/content/21/6/699?sso-checked=true), 1963).
 
 <figure>
-  <img
-    src="/src/assets/images/km-general.png"
-    alt="General kaplan meier curve"
-  />
+  <Image src={generalKM} alt="General kaplan meier curve" />
   <figcaption>
     Each step of the curve corresponds to an event time at which one or several
     patients relapsed. X-axis corresponds to survival time in weeks and Y-axis
@@ -103,10 +108,7 @@ The KM survival curve, a plot of the KM survival probability against time, provi
 </figure>
 
 <figure>
-  <img
-    src="/src/assets/images/km-gender.png"
-    alt="Kaplan Meier curves by gender groups"
-  />
+  <Image src={genderKM} alt="Kaplan Meier curves by gender groups" />
   <figcaption>
     Here we plot survival curves estimates according to <code>Gender</code>{" "}
     groups. Visually, there doesn't seem to be a constant difference in survival
@@ -118,10 +120,7 @@ The KM survival curve, a plot of the KM survival probability against time, provi
 </figure>
 
 <figure>
-  <img
-    src="/src/assets/images/km-treatment.png"
-    alt="Kaplan Meier curves by treatment groups"
-  />
+  <Image src={treatmentKM} alt="Kaplan Meier curves by treatment groups" />
   <figcaption>
     If we compare placebo vs. treatment, we can see some clear tendency that one
     group seems to have a slower rate of events and a lower proportion of
@@ -331,7 +330,7 @@ There are several ways to check that this assumption holds—Schoenfeld, Marting
 Thus, if the proportional hazards hold, the log cumulative hazards for each group should differ by the same constant—ie. the curves should be parralel.
 
 <figure>
-  <img src="/src/assets/images/loglog.png" alt="Log log curve" />
+  <Image src={logLog} alt="Log log curve" />
   <figcaption>
     The log cumulative hazard curves for the <code>Gender</code> variable cross
     each other, the PH assumption doesn't hold here; on the opposite, the curves
@@ -365,10 +364,7 @@ Many biases can be introduced from the design of the study, and should always be
 [correspondance](http://ascopubs.org/doi/full/10.1200/JCO.2009.23.3601) to the authors of a biased paper published in one of the most influential oncology journal; in a secondary analysis, they compared three treatment durations and concluded that longer treatment increased overall, disease-free and progression-free survival. However, patients who received treatment for more than 5 years (ie, group 3) **first had to live for 5 years**—ie. group 3 was composed of subjects that were maybe just inherently more resistant than the two other groups. The following plots were simulated by the authors of the correspondance
 
 <figure>
-  <img
-    src="/src/assets/images/survival-bias-1.jpeg"
-    alt="Survival bias illustration"
-  />
+  <Image src={survivalBias1} alt="Survival bias illustration" />
   <figcaption>
     At first glance, it seems like group 3 has indeed better prospects than the
     other groups, with a significant p-value for the overall Wald test.
@@ -376,10 +372,7 @@ Many biases can be introduced from the design of the study, and should always be
 </figure>
 
 <figure>
-  <img
-    src="/src/assets/images/survival-bias-2.jpeg"
-    alt="Corrected survival bias illustration"
-  />
+  <Image src={survivalBias2} alt="Corrected survival bias illustration" />
   <figcaption>
     However, when keeping only the subjects that survived 5 years in all groups
     for analysis (the landmark method,{" "}
