@@ -1,0 +1,8 @@
+---
+import katex from 'katex';
+
+const { formula, displayMode } = Astro.props;
+const html = katex.renderToString(formula, {throwOnError: false, displayMode: displayMode});
+---
+
+<span set:html={html} class="" />

@@ -9,14 +9,22 @@ tags: [gatsby, react, blog]
 description: A simple React component for comments and how to dynamically change its theme
 ---
 
+import { Image } from "astro:assets";
+import utterancesPreview from "/src/assets/images/utterances-preview.png";
+
 ## What is Utterances?
 
 On the previous iteration of my blog, I defaulted to use the Disqus plugin readily available in the Hugo ecosystem. This time I wanted a less bloated alternative and stumbled upon [Utterances](https://utteranc.es), a lightweight and open source GitHub comments widget built on GitHub issues.
 
 <figure>
-    <img src="/src/assets/images/utterances-preview.png"
-         alt="A preview of the Utterances comment widget">
-    <figcaption>This interface will most likely feel familiar to you. You can even write your comments in GitHub flavored markdown.</figcaption>
+  <Image
+    src={utterancesPreview}
+    alt="A preview of the Utterances comment widget"
+  />
+  <figcaption>
+    This interface will most likely feel familiar to you. You can even write
+    your comments in GitHub flavored markdown.
+  </figcaption>
 </figure>
 
 Under the hood, the widget is linked to a public repository, which can be your blog's own repository if it is public, or an independent one if you prefer to keep the rest of your code private or if you wish to keep your blog comments separate from your blog's other issues. The `utterances-bot` creates an issue for each page where there are comments, and then appends each comment to this issue. As you might have guessed, any reader who wishes to post a comment has to sign-in to a GitHub account (which should not be too hard a constraint if your audience is mainly developers).
@@ -38,7 +46,16 @@ Follow the simple instructions on the [official documentation](https://utteranc.
 
 ...which is unfortunately not copy-pastable as is, since React does not support the `<script>` tag. There are dark ways to go around this, but a more elegant solution would be to implement it _the React way_; let's write a component!
 
-<blockquote class="prose-quoteless"> This script is heavily inspired by <a href="https://www.emgoto.com/gatsby-comments/" target="_blank" rel="noreferrer">Emma Goto's excellent blog</a>. Check it out for more Gatsby and React tips! </blockquote>
+<blockquote class="prose-quoteless">
+  {" "}
+  This script is heavily inspired by <a
+    href="https://www.emgoto.com/gatsby-comments/"
+    target="_blank"
+    rel="noreferrer"
+  >
+    Emma Goto's excellent blog
+  </a>. Check it out for more Gatsby and React tips!{" "}
+</blockquote>
 
 ```js
 // src/components/comments.js
