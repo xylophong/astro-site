@@ -45,7 +45,7 @@ const options: SatoriOptions = {
 function svgBufferToPngBuffer(svg: string) {
   const resvg = new Resvg(svg);
   const pngData = resvg.render();
-  return pngData.asPng();
+  return pngData.asPng().toString();
 }
 
 export async function generateOgImageForPost(post: CollectionEntry<"blog">) {
