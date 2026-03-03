@@ -112,6 +112,17 @@ const { activeNav } = Astro.props;
       </nav>
     </div>
   </div>
+  <style is:global>
+    :root {
+      --retro-border: 4px solid black;
+      --retro-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+    }
+    .retro-card {
+      border: var(--retro-border);
+      box-shadow: var(--retro-shadow);
+      background-color: var(--color-card);
+    }
+  </style>
   <Hr />
 </header>
 
@@ -120,13 +131,13 @@ const { activeNav } = Astro.props;
     @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4;
   }
   .nav-container {
-    @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
+    @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row px-4;
   }
   .top-nav-wrap {
     @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
   }
   .logo {
-    @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;
+    @apply absolute py-1 text-3xl font-retro uppercase tracking-tighter sm:static sm:text-4xl;
   }
   .hamburger-menu {
     @apply self-end p-2 sm:hidden;
@@ -145,7 +156,7 @@ const { activeNav } = Astro.props;
     @apply col-span-2 flex items-center justify-center;
   }
   nav ul li a {
-    @apply w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1;
+    @apply w-full px-4 py-3 text-center font-retro text-2xl uppercase hover:bg-skin-accent hover:text-white transition-all sm:my-0 sm:px-4 sm:py-2;
   }
   nav ul li:nth-last-child(2) a {
     @apply w-auto;
@@ -155,7 +166,7 @@ const { activeNav } = Astro.props;
     @apply col-span-1;
   }
   nav a.active {
-    @apply underline decoration-wavy decoration-2 underline-offset-2;
+    @apply bg-black text-white px-4 py-2;
   }
   nav a.active svg {
     @apply fill-skin-accent;

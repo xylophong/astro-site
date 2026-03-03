@@ -56,8 +56,14 @@ module.exports = {
         transparent: "transparent",
       },
       fontFamily: {
-        sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
-        mono: ["Consolas", "monospace"],
+        sans: ["Space Mono", "monospace", ...defaultTheme.fontFamily.sans],
+        mono: ["VT323", "monospace"],
+        retro: ["VT323", "monospace"],
+      },
+      boxShadow: {
+        'retro': '4px 4px 0px 0px rgba(0,0,0,1)',
+        'retro-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+        'retro-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
       },
 
       typography: {

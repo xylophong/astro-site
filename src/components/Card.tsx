@@ -17,11 +17,11 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
   };
 
   return (
-    <li className="my-6">
+    <li className="my-8 border-4 border-black p-6 bg-skin-card shadow-retro hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
       <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
       <a
         href={href}
-        className="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-2 focus-visible:no-underline focus-visible:underline-offset-0"
+        className="inline-block text-2xl font-retro uppercase text-skin-accent hover:text-skin-base transition-colors"
       >
         {secHeading ? (
           <h2 {...headerProps}>{title}</h2>
@@ -29,7 +29,7 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
           <h3 {...headerProps}>{title}</h3>
         )}
       </a>
-      <p>{description}</p>
+      <p className="mt-4 font-sans line-clamp-3">{description}</p>
     </li>
   );
 }

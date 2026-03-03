@@ -5,20 +5,20 @@
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 254, 252, 228;
-    --color-text-base: 178, 86, 61;
-    --color-accent: 178, 86, 61;
-    --color-card: 254, 252, 228;
-    --color-card-muted: 254, 252, 228;
-    --color-border: 178, 86, 61;
+    --color-fill: 240, 230, 210;
+    --color-text-base: 40, 40, 40;
+    --color-accent: 255, 100, 100;
+    --color-card: 255, 255, 255;
+    --color-card-muted: 220, 220, 220;
+    --color-border: 0, 0, 0;
   }
   html[data-theme="dark"] {
-    --color-fill: 178, 86, 61;
-    --color-text-base: 254, 252, 228;
-    --color-accent: 254, 252, 228;
-    --color-card: 178, 86, 61;
-    --color-card-muted: 178, 86, 61;
-    --color-border: 254, 252, 228;
+    --color-fill: 30, 30, 35;
+    --color-text-base: 220, 220, 220;
+    --color-accent: 0, 255, 150;
+    --color-card: 45, 45, 50;
+    --color-card-muted: 60, 60, 65;
+    --color-border: 255, 255, 255;
   }
   html {
     scroll-behavior: smooth;
@@ -31,13 +31,20 @@
   html[data-theme="dark"] #sun-svg {
     display: block;
   }
+  html {
+    scroll-behavior: smooth;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' style='fill:black;stroke:white;stroke-width:1px;'><polygon points='0,0 0,15 4,11 10,11'/></svg>"), auto;
+  }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill text-skin-base 
-    selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill text-skin-base font-sans
+    selection:bg-skin-accent selection:text-white;
+    background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
   }
   section,
   footer {
-    @apply mx-auto max-w-3xl px-4;
+    @apply mx-auto max-w-3xl px-6 py-8 bg-skin-card border-4 border-black shadow-retro my-8;
   }
   a {
     @apply outline-2 outline-offset-1 outline-skin-fill 
@@ -52,6 +59,9 @@
     sm:scale-110;
   }
   .prose {
+    @apply prose-headings:font-retro prose-headings:uppercase prose-h1:text-5xl prose-h2:text-4xl
+    prose-p:leading-relaxed prose-code:bg-yellow-100 prose-code:text-black prose-code:border prose-code:border-black
+    prose-blockquote:border-l-8 prose-blockquote:border-black prose-blockquote:bg-skin-card-muted prose-blockquote:p-4;
     @apply prose-headings:!mb-3 prose-headings:!text-skin-base 
     prose-h3:italic prose-p:!text-skin-base 
     prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-1
@@ -162,7 +172,7 @@
     @apply hidden;
   }
   .focus-outline {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    @apply transition-all duration-100 hover:text-skin-accent underline decoration-2 underline-offset-4;
   }
 }
 
