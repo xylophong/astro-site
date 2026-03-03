@@ -36,5 +36,6 @@ export default defineConfig({
       allowedHosts: true,
     },
   },
+  // Added allowedHosts to vite config for proxy support
   scopedStyleStrategy: "where",
 });
