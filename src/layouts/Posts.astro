@@ -19,8 +19,8 @@ const { currentPage, totalPages, paginatedPosts } = Astro.props;
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header activeNav="posts" />
-  <Main pageTitle="Posts">
-    <ul>
+  <Main pageTitle="Posts" pageDesc="Articles on data science, medicine, and software.">
+    <ul class="post-list">
       {
         paginatedPosts.map(({ data, slug }) => (
           <Card href={`/posts/${slug}`} frontmatter={data} />
@@ -38,3 +38,9 @@ const { currentPage, totalPages, paginatedPosts } = Astro.props;
 
   <Footer noMarginTop={totalPages > 1} />
 </Layout>
+
+<style>
+  .post-list {
+    @apply list-none p-0 m-0;
+  }
+</style>

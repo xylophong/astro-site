@@ -1,5 +1,3 @@
-import { LOCALE } from "@config";
-
 interface DatetimesProps {
   pubDatetime: string | Date;
   modDatetime: string | Date | undefined;
@@ -16,51 +14,22 @@ export default function Datetime({
   size = "sm",
   className,
 }: Props) {
+  const dateToUse = modDatetime ? new Date(modDatetime) : new Date(pubDatetime);
+
+  const year = dateToUse.getFullYear();
+  const month = String(dateToUse.getMonth() + 1).padStart(2, "0");
+  const day = String(dateToUse.getDate()).padStart(2, "0");
+  const formatted = `${year}.${month}.${day}`;
+
   return (
-    <div className={`flex items-center opacity-80 ${className}`}>
-      {modDatetime ? (
-        <span className={`${size === "sm" ? "text-sm" : "text-base"}`}>
-          Updated:
-        </span>
-      ) : (
-        <span className="sr-only">Published:</span>
-      )}
-      <span className={`${size === "sm" ? "text-sm" : "text-base"}`}>
-        <FormattedDatetime
-          pubDatetime={pubDatetime}
-          modDatetime={modDatetime}
-        />
-      </span>
-    </div>
+    <time
+      dateTime={dateToUse.toISOString()}
+      className={`font-mono tracking-tight ${
+        size === "sm" ? "text-xs" : "text-sm"
+      } ${className ?? ""}`}
+      style={{ color: "rgba(var(--color-text-base), 0.45)" }}
+    >
+      {modDatetime ? `Updated ${formatted}` : formatted}
+    </time>
   );
 }
-
-const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
-  const myDatetime = new Date(modDatetime ? modDatetime : pubDatetime);
-
-  const day = myDatetime.getDay();
-  const month = myDatetime.toLocaleString(LOCALE.langTag, { month: "long" });
-  const year = myDatetime.getFullYear();
-
-  const nthNumber = (number: number) => {
-    if (number > 3 && number < 21) return "th";
-    switch (number % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  const date = `${month} ${day}${nthNumber(day)}, ${year}`;
-
-  return (
-    <>
-      <time dateTime={myDatetime.toISOString()}>{date}</time>
-    </>
-  );
-};

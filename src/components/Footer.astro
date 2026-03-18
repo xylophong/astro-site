@@ -1,5 +1,4 @@
 ---
-import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
 
 const currentYear = new Date().getFullYear();
@@ -11,14 +10,15 @@ export interface Props {
 const { noMarginTop = false } = Astro.props;
 ---
 
-<footer class={`${noMarginTop ? "" : "mt-auto"}`}>
-  <Hr noPadding />
-  <div class="footer-wrapper">
-    <Socials centered />
-    <div class="copyright-wrapper">
-      <span>Copyright &#169; {currentYear}</span>
-      <span class="separator">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+<footer class={`${noMarginTop ? "" : "mt-auto"} w-full`}>
+  <div class="footer-divider"></div>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <a href="/" class="footer-brand">xylophong</a>
+      <span class="footer-copy">© {currentYear} All rights reserved.</span>
+    </div>
+    <div class="footer-right">
+      <Socials />
     </div>
   </div>
 </footer>
@@ -27,19 +27,32 @@ const { noMarginTop = false } = Astro.props;
   footer {
     @apply w-full;
   }
-  .footer-wrapper {
-    @apply flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-4;
+
+  .footer-divider {
+    border-top: 1px solid rgba(var(--color-border), 0.12);
+    @apply w-full;
   }
-  .link-button {
-    @apply my-1 p-2 hover:rotate-6;
+
+  .footer-inner {
+    @apply mx-auto flex max-w-5xl items-center justify-between px-6 py-8;
   }
-  .link-button svg {
-    @apply scale-125;
+
+  .footer-left {
+    @apply flex flex-col gap-1;
   }
-  .copyright-wrapper {
-    @apply my-2 flex flex-col items-center whitespace-nowrap sm:flex-row;
+
+  .footer-brand {
+    @apply text-sm font-semibold no-underline;
+    color: rgb(var(--color-text-base));
+    opacity: 0.9;
   }
-  .separator {
-    @apply hidden sm:inline;
+
+  .footer-copy {
+    @apply text-xs;
+    color: rgba(var(--color-text-base), 0.4);
+  }
+
+  .footer-right {
+    @apply flex items-center;
   }
 </style>

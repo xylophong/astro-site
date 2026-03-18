@@ -14,7 +14,7 @@ const { href, className, ariaLabel, title, disabled = false, newTab = false } = 
 <a
   href={disabled ? "#" : href}
   tabindex={disabled ? "-1" : "0"}
-  class={`group inline-block ${className}`}
+  class={`group inline-flex items-center gap-1.5 text-sm font-medium no-underline transition-opacity hover:opacity-70 ${className}`}
   aria-label={ariaLabel}
   title={title}
   aria-disabled={disabled}
@@ -25,6 +25,10 @@ const { href, className, ariaLabel, title, disabled = false, newTab = false } = 
 
 <style>
   a {
-    @apply hover:text-skin-accent;
+    color: rgb(var(--color-accent));
+  }
+  a svg {
+    @apply h-4 w-4 transition-transform group-hover:translate-x-0.5;
+    fill: currentColor;
   }
 </style>

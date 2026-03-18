@@ -45,44 +45,49 @@ const layoutProps = {
 
 <Layout {...layoutProps}>
   <Header />
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
-    <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="history.back()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
-  </div>
   <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-    />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
+    <div class="back-btn-wrap">
+      <button class="back-btn focus-outline" onclick="history.back()">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
+        </svg>
+        <span>Back</span>
+      </button>
+    </div>
+
+    <article class="article-wrap">
+      <!-- Kicker / label -->
+      <div class="article-kicker">
+        <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} size="sm" />
+        {author && <span class="author-chip">{author}</span>}
+      </div>
+
+      <h1 transition:name={slugifyStr(title)} class="article-title">{title}</h1>
+
+      {description && <p class="article-desc">{description}</p>}
+
+      {tags.length > 0 && (
+        <ul class="article-tags">
+          {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} size="sm" />)}
+        </ul>
+      )}
+
+      <div class="article-divider"></div>
+
+      <div id="article" role="article" class="prose max-w-none">
+        <Content />
+      </div>
     </article>
 
-    <ul class="my-8">
-      {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} />)}
-    </ul>
-    <div class="flex justify-end">
+    <div class="bottom-actions">
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap hover:opacity-75"
+        class="focus-outline back-btn"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
+        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90" aria-hidden="true">
+          <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
         </svg>
-        <span>Back to Top</span>
+        <span>Back to top</span>
       </button>
     </div>
   </main>
@@ -91,22 +96,81 @@ const layoutProps = {
 
 <style>
   main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+    @apply mx-auto w-full max-w-5xl px-6 pb-16;
   }
-  .post-title {
-    @apply text-4xl font-semibold text-skin-accent;
+
+  .back-btn-wrap {
+    @apply pt-8 mb-2;
   }
+
+  .back-btn {
+    @apply flex items-center gap-1 text-sm cursor-pointer transition-opacity;
+    color: rgba(var(--color-text-base), 0.45);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .back-btn:hover {
+    color: rgba(var(--color-text-base), 0.9);
+  }
+
+  .back-btn svg {
+    @apply h-4 w-4;
+    fill: currentColor;
+  }
+
+  .article-wrap {
+    @apply py-8 max-w-3xl;
+  }
+
+  .article-kicker {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .author-chip {
+    @apply text-xs font-medium;
+    color: rgba(var(--color-text-base), 0.45);
+  }
+
+  .author-chip::before {
+    content: "·";
+    @apply mr-3;
+  }
+
+  .article-title {
+    @apply text-3xl font-bold tracking-tight mb-4 sm:text-4xl;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-text-base));
+  }
+
+  .article-desc {
+    @apply text-lg leading-relaxed mb-5;
+    color: rgba(var(--color-text-base), 0.6);
+  }
+
+  .article-tags {
+    @apply flex flex-wrap gap-1.5 list-none p-0 m-0 mb-4;
+  }
+
+  .article-divider {
+    border-top: 1px solid rgba(var(--color-border), 0.12);
+    @apply w-full my-8;
+  }
+
+  .bottom-actions {
+    @apply flex justify-end max-w-3xl py-8;
+    border-top: 1px solid rgba(var(--color-border), 0.12);
+  }
+
   .katex * {
     @apply !text-skin-base;
   }
-
 </style>
 
 <script is:inline>
-  /* When the user clicks on the "Back to Top" button,
-   * scroll to the top of the document */
   document.querySelector("#back-to-top")?.addEventListener("click", () => {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   });
 </script>
