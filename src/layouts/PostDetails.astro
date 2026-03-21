@@ -4,7 +4,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
-import type { CollectionEntry } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
@@ -24,7 +24,7 @@ const {
   tags,
 } = post.data;
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
@@ -41,10 +41,27 @@ const layoutProps = {
   canonicalURL,
   ogImage: ogUrl,
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  datePublished: pubDatetime.toISOString(),
+  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+  author: [
+    {
+      "@type": "Person",
+      name: author,
+      url: new URL("/", Astro.url.origin).href,
+    },
+  ],
+  image: [ogUrl],
+};
 ---
 
 <Layout {...layoutProps}>
   <Header />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
       class="focus-outline mb-2 mt-8 flex hover:opacity-75"
