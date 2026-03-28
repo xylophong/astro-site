@@ -6,6 +6,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
 import Pagination from "@components/Pagination.astro";
+import SidebarFilter from "@components/SidebarFilter.astro";
 import { SITE } from "@config";
 
 export interface Props {
@@ -20,30 +21,38 @@ const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
-  <Header activeNav="tags" />
-  <Main
-    pageTitle={[`Tag:`, `${tagName}`]}
-    titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tagName}".`}
-  >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
-    <ul>
-      {
-        paginatedPosts.map(({ data, id }) => (
-          <Card href={`/posts/${id}`} frontmatter={data} />
-        ))
-      }
-    </ul>
-  </Main>
+  <Header activeNav="posts" />
+  
+  <div class="mx-auto flex w-full max-w-5xl flex-col sm:flex-row justify-between pt-8 sm:gap-8 px-4">
+    <SidebarFilter activeTag={tag} />
+    
+    <div id="posts-wrapper" class="flex-1 w-full min-w-0">
+      <Main
+        pageTitle={[`Tag:`, `${tagName}`]}
+        titleTransition={tag}
+        pageDesc={`All the articles with the tag "${tagName}".`}
+        noPadding={true}
+      >
+        <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+        <ul>
+          {
+            paginatedPosts.map(({ data, id }) => (
+              <Card href={`/posts/${id}`} frontmatter={data} />
+            ))
+          }
+        </ul>
+      </Main>
 
-  <Pagination
-    {currentPage}
-    {totalPages}
-    prevUrl={`/tags/${tag}${
-      currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""
-    }`}
-    nextUrl={`/tags/${tag}/${currentPage + 1}`}
-  />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        prevUrl={`/tags/${tag}${
+          currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""
+        }`}
+        nextUrl={`/tags/${tag}/${currentPage + 1}`}
+      />
+    </div>
+  </div>
 
   <Footer noMarginTop={totalPages > 1} />
 </Layout>

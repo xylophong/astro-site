@@ -62,7 +62,7 @@ const articleSchema = {
 <Layout {...layoutProps}>
   <Header />
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+  <div class="mx-auto flex w-full max-w-5xl justify-start px-4">
     <button
       class="focus-outline mb-2 mt-8 flex hover:opacity-75"
       onclick="history.back()"
@@ -82,7 +82,7 @@ const articleSchema = {
       size="lg"
       className="my-2"
     />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+    <article id="article" role="article" class="prose mt-8 max-w-none">
       <Content />
     </article>
 
@@ -108,7 +108,7 @@ const articleSchema = {
 
 <style>
   main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+    @apply mx-auto w-full max-w-5xl px-4 pb-12;
   }
   .post-title {
     @apply text-4xl font-semibold text-skin-accent;
@@ -116,6 +116,7 @@ const articleSchema = {
   .katex * {
     @apply !text-skin-base;
   }
+
 
 </style>
 

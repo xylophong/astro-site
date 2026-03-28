@@ -1,5 +1,5 @@
 ---
-import Breadcrumbs from "@components/Breadcrumbs.astro";
+
 
 interface StringTitleProp {
   pageTitle: string;
@@ -12,13 +12,13 @@ interface ArrayTitleProp {
   pageDesc?: string;
 }
 
-export type Props = StringTitleProp | ArrayTitleProp;
+export type Props = (StringTitleProp | ArrayTitleProp) & { noPadding?: boolean };
 
 const { props } = Astro;
 ---
 
-<Breadcrumbs />
-<main id="main-content">
+
+<main id="main-content" class={props.noPadding ? "px-0" : "px-4"}>
   {
     "titleTransition" in props ? (
       <h1>
@@ -37,7 +37,7 @@ const { props } = Astro;
 
 <style>
   #main-content {
-    @apply mx-auto w-full max-w-3xl px-4 pb-4;
+    @apply mx-auto w-full max-w-5xl pb-4;
   }
   #main-content h1 {
     @apply text-2xl font-semibold sm:text-3xl;
