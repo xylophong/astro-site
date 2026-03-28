@@ -4,7 +4,7 @@ pubDatetime: 2018-04-05
 title: From medicine to data science
 featured: false
 draft: false
-tags: [medicine, data science, books]
+tags: [medicine, data-science, books]
 description: Useful resources to catch up on data science fundamentals when coming from medicine
 ---
 

@@ -4,10 +4,10 @@ export const SITE: Site = {
   website: "https://xylophong.com/", // replace this with your deployed domain
   author: "Dinh-Phong Nguyen",
   desc: "Blog & portfolio",
-  title: "xylophong",
+  title: "Dinh-Phong Nguyen",
   // ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
-  postPerPage: 5,
+  postPerPage: 999,
 };
 
 export const LOCALE = {

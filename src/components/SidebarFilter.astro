@@ -29,25 +29,86 @@ const tags = getUniqueTagsWithCount(posts);
 
     <ul class="flex sm:flex-col gap-5 sm:gap-[7px] sm:ml-[21px] sm:mb-8 items-center sm:items-start shrink-0">
       {tags.map(({ tag, tagName, count }) => {
-        const isActive = activeTag === tag;
+        const isChecked = activeTag === tag;
         return (
           <li class="shrink-0">
-            <a href={isActive ? "/posts" : `/tags/${tag}`} class={`flex items-center gap-2.5 text-[14px] group transition-colors ${isActive ? 'text-skin-base font-medium' : 'text-skin-base/50 hover:text-skin-base/80'}`}>
-              <div class={`hidden sm:flex w-3 h-3 rounded-[3px] border items-center justify-center transition-colors shadow-sm ${isActive ? 'bg-skin-base border-skin-base text-skin-inverted' : 'border-skin-base/20 group-hover:border-skin-base/40 bg-skin-card'}`}>
-                {isActive && (
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                )}
-              </div>
-              <span>{tagName} <span class="opacity-60 text-[13px] ml-0.5">({count})</span></span>
-            </a>
+            <label class="flex items-center gap-2.5 text-[14px] group transition-colors cursor-pointer text-skin-base/70 hover:text-skin-base relative">
+              <input 
+                type="checkbox" 
+                value={tag} 
+                checked={isChecked}
+                class="tag-checkbox peer appearance-none w-3 h-3 border border-skin-accent rounded-[2px] bg-transparent checked:bg-skin-accent checked:border-skin-accent focus:outline-none transition-colors cursor-pointer"
+              />
+              <svg class="absolute w-2.5 h-2.5 left-[1px] top-[4px] pointer-events-none opacity-0 peer-checked:opacity-100 text-skin-fill sm:top-[4px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="tracking-wide select-none">{tagName} <span class="opacity-60 text-[13px] ml-0.5">({count})</span></span>
+            </label>
           </li>
         );
       })}
     </ul>
   </div>
 </aside>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", () => {
+    const checkboxes = document.querySelectorAll('.tag-checkbox');
+    const cards = document.querySelectorAll('li.post-card');
+
+    function updateFilters() {
+      const selectedTags = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      const isTagPage = window.location.pathname.startsWith('/tags/');
+      if (isTagPage) {
+        if (selectedTags.length > 0) {
+          window.location.href = `/posts?tags=${selectedTags.join(',')}`;
+        } else {
+          window.location.href = `/posts`;
+        }
+        return;
+      }
+
+      cards.forEach(card => {
+        const cardTags = card.getAttribute('data-tags')?.split(',') || [];
+        if (selectedTags.length === 0) {
+          card.classList.remove('hidden');
+        } else {
+          const hasMatch = selectedTags.some(tag => cardTags.includes(tag));
+          if (hasMatch) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+      
+      const url = new URL(window.location);
+      if (selectedTags.length > 0) {
+        url.searchParams.set('tags', selectedTags.join(','));
+      } else {
+        url.searchParams.delete('tags');
+      }
+      window.history.replaceState({}, '', url);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const tagsParam = params.get('tags');
+    if (tagsParam && !window.location.pathname.startsWith('/tags/')) {
+      const activeTags = tagsParam.split(',');
+      checkboxes.forEach(cb => {
+        if (activeTags.includes(cb.value)) cb.checked = true;
+      });
+      updateFilters();
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateFilters);
+    });
+  });
+</script>
 
 <style>
   .no-scrollbar::-webkit-scrollbar {
