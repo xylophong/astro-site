@@ -35,4 +35,10 @@ export const SOCIALS: SocialObjects = [
     linkTitle: `${SITE.title} on LinkedIn`,
     active: true,
   },
+  {
+    name: "GoogleScholar",
+    href: "https://scholar.google.com/citations?user=YVBpD3oAAAAJ&hl=fr",
+    linkTitle: `${SITE.title} on Google Scholar`,
+    active: true,
+  },
 ];
